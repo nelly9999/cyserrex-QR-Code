@@ -1,5 +1,13 @@
-# cyserr
+# Cyserrex QR Code
 
 QR Code Berbasis Web
 
-Thanks for https://github.com/andrastoth/webcodecamjs
+# Versi
+
+v1.0
+- Dasbor
+- Administrator (Not yet)
+
+# Thanks to
+
+https://github.com/andrastoth/webcodecamjs
