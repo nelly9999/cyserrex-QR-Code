@@ -1,0 +1,73 @@
+#konten {
+    padding: 70px 0px 0px 0px;
+}
+nav  {
+    margin: -15px 0px 0px 0px;
+}
+
+nav ul {
+    margin: 0px -8px 0px 0px;
+    width:100%;
+    padding: 17px 0px 10px 50px;
+    float: right;
+    list-style: none;
+    background: #444;
+    background: #5f5f5f; 
+    box-shadow: 0 1px 0 rgba(255,255,255,.2), 0 2px 1px rgba(0,0,0,.8) inset; 
+}
+
+nav li {
+    float:left;
+}
+
+nav a {
+    float:left;
+    padding: .8em 1.5em;
+    text-decoration: none;
+    color: #2d2c2c;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    font: bold 12px 'trebuchet MS', Arial, Helvetica;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #fff #ccc #999 #eee;
+    background: #c1c1c1;
+    background: linear-gradient(#b5b5b5, #c1c1c1);            
+ }
+ 
+nav a:hover, nav a:focus {
+    outline: 0;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0,0,0,.2);
+    background: #77adab;
+    background: linear-gradient(#77adab, #588280);
+}
+
+nav a:active {
+    box-shadow: 0 0 2px 2px rgba(0,0,0,.3) inset;
+}
+ 
+nav li:first-child a {
+    border-left: 0;
+    border-radius: 4px 0px 0px 4px;            
+}
+
+nav li:nth-last-child(2) a {
+    border-right: 0;
+    border-radius: 0px 4px 4px 0px;            
+}
+
+nav li:last-child a {
+    border-right: 0;
+    border-radius: 4px 4px 4px 4px;            
+}
+
+.logout {
+	right: 0px;
+    position: absolute;
+    margin-right: 20px;
+}
+.active {
+    background: #a89876;
+}
