@@ -21,6 +21,10 @@
         <li class="logout"><a href="index.php?p=logout">Logout</a></li>
 	</ul>
 </nav>
+<div id="header2">
+	<div class="halaman"><h3>Halaman Pegawai</h3></div>
+	<div class="user">Selamat datang, USER</div>
+</div>
  
 <div id="konten">
 	<?php

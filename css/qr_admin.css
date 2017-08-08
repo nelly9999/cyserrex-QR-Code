@@ -1,12 +1,28 @@
+body {
+    margin: 0px;
+}
 #konten {
-    padding: 70px 0px 0px 0px;
+    padding: 0px 5px 0px 5px;
+    font-family: Calibri;
+}
+#header2 {
+    position: relative;
+    max-width: 100%;
+    border-bottom: solid;
+    margin-bottom: 10px;
+    padding: 60px 0 0 10px;
+    font-family: Calibri;
+    font-weight: 600;
+    box-shadow: 0px -5px 13px 1px rgba(0,0,0,0.16) inset;
 }
 nav  {
-    margin: -15px 0px 0px 0px;
+    margin: -5px 0px 0px 10px;
 }
 
 nav ul {
-    margin: 0px -8px 0px 0px;
+    position: relative;
+    z-index: 2;
+    margin: 0px 0px 0px 0px;
     width:100%;
     padding: 17px 0px 10px 50px;
     float: right;
@@ -14,6 +30,7 @@ nav ul {
     background: #444;
     background: #5f5f5f; 
     box-shadow: 0 1px 0 rgba(255,255,255,.2), 0 2px 1px rgba(0,0,0,.8) inset; 
+    border-bottom: solid 1px;
 }
 
 nav li {
@@ -70,4 +87,10 @@ nav li:last-child a {
 }
 .active {
     background: #a89876;
+}
+
+.user {
+    position: absolute;
+    right: 15px;
+    top: 70px;
 }
