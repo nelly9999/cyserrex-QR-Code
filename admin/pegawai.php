@@ -2,16 +2,17 @@
 <script type="text/javascript">
 $("li a").removeClass("active");
 $( ".pegawai a" ).addClass( "active" );
+$('.halmn').append('Pegawai');
 </script>
 
 <!--TABLE/GRID PEGAWAI -->
 <div id="g_pegawai_tb">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="g_m_tambah_konsul_pkl()">Tambah</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="g_m_edit_konsul_pkl()">Edit</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-trashdel" plain="true" onclick="g_m_hapus_konsul_pkl()">Hapus</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="g_m_hapus_konsul_pkl()">Cetak QR</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="g_m_tambah_pegawai()">Tambah</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="g_m_edit_pegawai()">Edit</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-trashdel" plain="true" onclick="g_m_hapus_pegawai()">Hapus</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="g_m_cetak_pegawai()">Cetak QR</a>
 </div>
-<table class="easyui-datagrid" title="Pegawai" style="width:1080px;height:320px" id="g_bimbingan"
+<table class="easyui-datagrid" title="Pegawai" style="width:1080px;height:320px" id="g_pegawai"
 		data-options="singleSelect:false, url:'../json/admin_pegawai.php', showFooter:true,toolbar:'#g_pegawai_tb',
 					  fitColumns:true, remoteSort:true, autoRowHeight:true, rownumbers: true, singleSelect:true
 					  ">
@@ -32,16 +33,37 @@ $( ".pegawai a" ).addClass( "active" );
 	</thead>
 </table>
 
+<!--DIALOG TAMBAH PEGAWAI-->
+<div id="g_tambah_pegawai_dlg" class="easyui-dialog" style="left:350px;top:200px;" closed="true" 
+	buttons="#g_tambah_pegawai_dlg-buttons" >
+		<form id="g_tambah_pegawai_fm" method="post">
+			<table cellpadding="5">
+				<tr>
+					<td>Tanggal</td><td>:</td>
+					<td><input class="easyui-datebox" type="text" name="tgl_bimbingan" data-options="frequired:'true'" style="width:100px"></input></td>
+				</tr>
+				<tr>
+					<td>Nama Pegawai</td><td>:</td>
+					<td><input class="easyui-textbox" name="materi_bimbingan" data-options="multiline:true" style="height:60px; width:350px"></input></td>
+				</tr>
+			</table>
+		</form>
+	</div>	
+	<div id="g_tambah_pegawai_dlg-buttons">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok"     onclick="g_m_tambah_pegawai_simpan()">Save</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#g_tambah_pegawai_dlg').dialog('close')">Cancel</a>
+	</div>	
+
 <script type="text/javascript">
-/*
-function g_m_tambah_konsul_pkl(){
-			$('#g_tambah_konsul_dlg').dialog('open').dialog('setTitle','Tambah Bimbingan Konsul');
-			$('#g_tambah_konsul_fm').form('clear');		
-			url = 'json/g_pkl_bimbingan_konsul_aksi.php?page=simpan&id_tim=<?php echo $id_tim ?>';
+
+function g_m_tambah_pegawai(){
+			$('#g_tambah_pegawai_dlg').dialog('open').dialog('setTitle','Tambah Pegawai');
+			$('#g_tambah_pegawai_fm').form('clear');		
+			url = '../json/admin_pegawai_aksi.php?page=simpan';
 	}
 
-function g_m_tambah_konsul_pkl_save(){
-		$('#g_tambah_konsul_fm').form('submit',{ 
+function g_m_tambah_pegawai_simpan(){
+		$('#g_tambah_pegawai_fm').form('submit',{ 
 			url: url,
 			onSubmit: function(){
 				return $(this).form('validate');
@@ -54,8 +76,8 @@ function g_m_tambah_konsul_pkl_save(){
 						title: 'Sukses',
 						msg: "Data Berhasil Disimpan"
 					})
-					$('#g_tambah_konsul_dlg').dialog('close');		// close the dialog
-					$('#g_bimbingan').datagrid('reload');	// reload the user data
+					$('#g_tambah_pegawai_dlg').dialog('close');		// close the dialog
+					$('#g_pegawai').datagrid('reload');	// reload the user data
 				} else {
 					$.messager.show({
 						title: 'Error',
@@ -65,7 +87,7 @@ function g_m_tambah_konsul_pkl_save(){
 			}
 		});
 	}
-*/
+
 
 </script>
 

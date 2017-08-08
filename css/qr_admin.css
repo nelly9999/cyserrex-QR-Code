@@ -1,9 +1,12 @@
 body {
     margin: 0px;
 }
+.halmn {
+    display: contents;
+}
 #konten {
     padding: 0px 5px 0px 5px;
-    font-family: Calibri;
+    font-family: Calibri !important;
 }
 #header2 {
     position: relative;

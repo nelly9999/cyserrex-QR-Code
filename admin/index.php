@@ -22,7 +22,7 @@
 	</ul>
 </nav>
 <div id="header2">
-	<div class="halaman"><h3>Halaman Pegawai</h3></div>
+	<div class="halaman"><h3>Halaman <div class="halmn"></div></h3></div>
 	<div class="user">Selamat datang, USER</div>
 </div>
  
