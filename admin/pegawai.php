@@ -10,18 +10,20 @@ $('.halmn').append('Pegawai');
 	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="g_m_tambah_pegawai()">Tambah</a>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="g_m_edit_pegawai()">Edit</a>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-trashdel" plain="true" onclick="g_m_hapus_pegawai()">Hapus</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="g_m_cetak_pegawai()">Cetak QR</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-qr" plain="true" onclick="g_m_cetak_pegawai()">Generate QR</a>
+	<!--a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="g_m_cetak_pegawai()">Cetak QR</a-->
 </div>
 <table class="easyui-datagrid" title="Pegawai" style="width:1080px;height:320px" id="g_pegawai"
 		data-options="singleSelect:false, url:'../json/admin_pegawai.php', showFooter:true,toolbar:'#g_pegawai_tb',
-					  fitColumns:true, remoteSort:true, autoRowHeight:true, rownumbers: true, singleSelect:true
-					  ">
+					  fitColumns:true, remoteSort:true, autoRowHeight:true, rownumbers: true, singleSelect:true, pagination:true,
+					  pageSize:10, pageList: [10,20,50,100]">
 	<thead>
 		<tr>
 			<!--th data-options="field:'id_pegawaia',hidden:true"></th-->
 			<th data-options="field:'id_peg',sortable:true">ID Pegawai</th>
 			<th data-options="field:'nip',sortable:true">NIP</th>
 			<th data-options="field:'nama',sortable:true">Nama</th>	
+			<th data-options="field:'jk',sortable:true">JK</th>	
 			<th data-options="field:'id_jbt',sortable:true">Jabatan</th>
 			<th data-options="field:'id_sts',sortable:true">Status</th>
 			<th data-options="field:'tgl_lahir',sortable:true">Tanggal Lahir</th>	
@@ -34,27 +36,148 @@ $('.halmn').append('Pegawai');
 </table>
 
 <!--DIALOG TAMBAH PEGAWAI-->
-<div id="g_tambah_pegawai_dlg" class="easyui-dialog" style="left:350px;top:200px;" closed="true" 
-	buttons="#g_tambah_pegawai_dlg-buttons" >
-		<form id="g_tambah_pegawai_fm" method="post">
-			<table cellpadding="5">
-				<tr>
-					<td>Tanggal</td><td>:</td>
-					<td><input class="easyui-datebox" type="text" name="tgl_bimbingan" data-options="frequired:'true'" style="width:100px"></input></td>
-				</tr>
-				<tr>
-					<td>Nama Pegawai</td><td>:</td>
-					<td><input class="easyui-textbox" name="materi_bimbingan" data-options="multiline:true" style="height:60px; width:350px"></input></td>
-				</tr>
-			</table>
-		</form>
-	</div>	
-	<div id="g_tambah_pegawai_dlg-buttons">
-		<a href="#" class="easyui-linkbutton" iconCls="icon-ok"     onclick="g_m_tambah_pegawai_simpan()">Save</a>
-		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#g_tambah_pegawai_dlg').dialog('close')">Cancel</a>
-	</div>	
+<div id="g_tambah_pegawai_dlg" class="easyui-dialog" style="width:500px;top:20px"
+        closed="true" buttons="#g_tambah_pegawai_dlg-buttons">
+    <form id="g_tambah_pegawai_fm" method="post" novalidate style="margin:0;padding:20px 50px" enctype="multipart/form-data">
+        <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">NIP</div>
+        <div style="margin-bottom:10px">
+            <input name="nip" class="easyui-textbox" validType="length[6,18]" label="NIP:" style="width:350px">
+        </div>
+        <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">Data Wajib</div>
+        <div style="margin-bottom:10px">
+            <input name="nama" class="easyui-textbox" required="true" missingMessage="Mohon isi Nama" label="Nama:" style="width:350px">
+        </div>
+        <div style="margin-bottom:10px">
+            <select name="jk" class="easyui-combobox" panelHeight="auto" required="true" missingMessage="Mohon pilih Jenis Kelamin" label="Jenis Kelamin:" style="width:200px">
+	            <option value="L">Laki-Laki</option>
+	    		<option value="P">Perempuan</option>
+	    	</select>
+        </div>
+        <div style="margin-bottom:10px">
+        	<input label="Jabatan:" class="easyui-combobox" name="id_jbt" style="width:225px"
+								data-options="
+								url:'../json/cmb_jabatan.php',
+								method:'get',required:'true',
+								valueField:'id_jbt',
+								textField:'nama_jbt',
+								required: 'true',
+								missingMessage: 'Mohon pilih Jabatan',
+								panelHeight:'auto'"></input>     
+        </div>
+        <div style="margin-bottom:10px">
+        	<input label="Status:" class="easyui-combobox" name="id_sts" style="width:200px"
+								data-options="
+								url:'../json/cmb_status.php',
+								method:'get',required:'true',
+								valueField:'id_sts',
+								textField:'nama_sts',
+								required: 'true',
+								missingMessage: 'Mohon pilih Status',
+								panelHeight:'auto'"></input>     
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="tgl_lahir" class="easyui-datebox" data-options="formatter:myformatter,parser:myparser" required="true" missingMessage="Mohon isi Tanggal Lahir" label="Tanggal Lahir:" style="width:200px">
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="alamat" class="easyui-textbox" multiline="true" required="true" missingMessage="Mohon isi Alamat" label="Alamat:" style="width:350px">
+        </div>
+        <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">Opsional</div>
+        <div style="margin-bottom:10px">
+            <input name="no_telp" class="easyui-textbox" label="Nomor Telepon:" style="width:350px">
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="foto" class="easyui-filebox" accept="image/*" label="Foto:" style="width:300px">
+        </div>
+    </form>
+</div>
+<div id="g_tambah_pegawai_dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="g_m_tambah_pegawai_simpan()" style="width:90px">Simpan</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#g_tambah_pegawai_dlg').dialog('close')" style="width:90px">Batal</a>
+</div>
+
+<!--DIALOG EDIT PEGAWAI-->
+<div id="g_edit_pegawai_dlg" class="easyui-dialog" style="width:500px;top:20px"
+        closed="true" buttons="#g_edit_pegawai_dlg-buttons">
+    <form id="g_edit_pegawai_fm" method="post" novalidate style="margin:0;padding:20px 50px" enctype="multipart/form-data">
+    <input type="text" hidden name="id_peg">
+        <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">NIP</div>
+        <div style="margin-bottom:10px">
+            <input name="nip" class="easyui-textbox" validType="length[6,18]" label="NIP:" style="width:350px">
+        </div>
+        <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">Data Wajib</div>
+        <div style="margin-bottom:10px">
+            <input name="nama" class="easyui-textbox" required="true" missingMessage="Mohon isi Nama" label="Nama:" style="width:350px">
+        </div>
+        <div style="margin-bottom:10px">
+            <select name="jk" class="easyui-combobox" panelHeight="auto" required="true" missingMessage="Mohon pilih Jenis Kelamin" label="Jenis Kelamin:" style="width:200px">
+	            <option value="L">Laki-Laki</option>
+	    		<option value="P">Perempuan</option>
+	    	</select>
+        </div>
+        <div style="margin-bottom:10px">
+        	<input label="Jabatan:" class="easyui-combobox" name="id_jbt" style="width:225px"
+								data-options="
+								url:'../json/cmb_jabatan.php',
+								method:'get',required:'true',
+								valueField:'id_jbt',
+								textField:'nama_jbt',
+								required: 'true',
+								missingMessage: 'Mohon pilih Jabatan',
+								panelHeight:'auto'"></input>     
+        </div>
+        <div style="margin-bottom:10px">
+        	<input label="Status:" class="easyui-combobox" name="id_sts" style="width:200px"
+								data-options="
+								url:'../json/cmb_status.php',
+								method:'get',required:'true',
+								valueField:'id_sts',
+								textField:'nama_sts',
+								required: 'true',
+								missingMessage: 'Mohon pilih Status',
+								panelHeight:'auto'"></input>     
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="tgl_lahir" class="easyui-datebox" data-options="formatter:myformatter,parser:myparser" required="true" missingMessage="Mohon isi Tanggal Lahir" label="Tanggal Lahir:" style="width:200px">
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="alamat" class="easyui-textbox" multiline="true" required="true" missingMessage="Mohon isi Alamat" label="Alamat:" style="width:350px">
+        </div>
+        <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">Opsional</div>
+        <div style="margin-bottom:10px">
+            <input name="no_telp" class="easyui-textbox" label="Nomor Telepon:" style="width:350px">
+        </div>
+        <div style="margin-bottom:10px">
+            <input name="foto" class="easyui-filebox" accept="image/*" label="Foto:" style="width:300px">
+        </div>
+    </form>
+</div>
+<div id="g_edit_pegawai_dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="g_m_edit_pegawai_simpan()" style="width:90px">Simpan</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#g_edit_pegawai_dlg').dialog('close')" style="width:90px">Batal</a>
+</div>
+
 
 <script type="text/javascript">
+
+function myformatter(date){
+		var y = date.getFullYear();
+		var m = date.getMonth()+1;
+		var d = date.getDate();
+		return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+	}
+
+	function myparser(s){
+		if (!s) return new Date();
+		var ss = (s.split('-'));
+		var y = parseInt(ss[0],10);
+		var m = parseInt(ss[1],10);
+		var d = parseInt(ss[2],10);
+		if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+			return new Date(y,m-1,d);
+		} else {
+			return new Date();
+		}
+	}
 
 function g_m_tambah_pegawai(){
 			$('#g_tambah_pegawai_dlg').dialog('open').dialog('setTitle','Tambah Pegawai');
@@ -78,9 +201,11 @@ function g_m_tambah_pegawai_simpan(){
 					})
 					$('#g_tambah_pegawai_dlg').dialog('close');		// close the dialog
 					$('#g_pegawai').datagrid('reload');	// reload the user data
+					$('#g_edit_pegawai_fm').form('reset'); //form edit harus direset
 				} else {
 					$.messager.show({
 						title: 'Error',
+						height: 150,
 						msg: result.msg
 					});
 				}
@@ -88,6 +213,69 @@ function g_m_tambah_pegawai_simpan(){
 		});
 	}
 
+function g_m_edit_pegawai(){
+	var row=$('#g_pegawai').datagrid('getSelected');
+	if (row){
+		$('#g_edit_pegawai_dlg').dialog('open').dialog('setTitle','Edit Pegawai');
+		$('#g_edit_pegawai_fm').form('load',row);
+		url = '../json/admin_pegawai_aksi.php?page=edit';
+	}
+	else
+		$.messager.alert('Peringatan','Pilih Pegawai terlebih dahulu.','warning');
+
+}
+function g_m_edit_pegawai_simpan(){
+	$('#g_edit_pegawai_fm').form('submit',{ 
+		url: url,
+		onSubmit: function(){
+			return $(this).form('validate');
+		},
+		success: function(result){
+			var result = eval('('+result+')');
+			if (result.success){
+				$.messager.show({
+					title: 'Sukses',
+					msg: "Data Berhasil Disimpan"
+				})
+				$('#g_edit_pegawai_dlg').dialog('close');		// close the dialog
+				$('#g_pegawai').datagrid('reload');	// reload Data Grid
+				$('#g_edit_pegawai_fm').form('reset'); //form edit harus direset
+			} else {
+				$.messager.show({
+					title: 'Error',
+					msg: result.msg
+				});
+			}
+		}
+	});
+}
+
+function g_m_hapus_pegawai(){
+		var row = $('#g_pegawai').datagrid('getSelected');
+		if (row){
+			$.messager.confirm('Konfirmasi','Hapus data pegawai '+row.nama,function(r){
+				if (r){
+					$.post('../json/admin_pegawai_aksi.php?page=hapus',{id_peg:row.id_peg},function(result){
+						if (result.success){
+							$.messager.show({
+								title: 'Sukses',
+								msg: "Data berhasil dihapus."
+							})
+							$('#g_pegawai').datagrid('reload');	// reload the user data
+							 
+						} else {
+							$.messager.show({	// show error message
+								title: 'Error',
+								msg: result.msg
+							});
+						}
+					},'json');
+				}
+			});
+		}
+		else
+			$.messager.alert('Peringatan','Pilih konsultasi yang akan dihapus.','warning');
+	}
 
 </script>
 
