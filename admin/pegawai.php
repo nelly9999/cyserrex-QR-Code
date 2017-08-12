@@ -10,7 +10,7 @@ $('.halmn').append('Pegawai');
 	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="g_m_tambah_pegawai()">Tambah</a>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="g_m_edit_pegawai()">Edit</a>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-trashdel" plain="true" onclick="g_m_hapus_pegawai()">Hapus</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-qr" plain="true" onclick="g_m_cetak_pegawai()">Generate QR</a>
+	<a href="#" class="easyui-linkbutton" iconCls="icon-qr" plain="true" onclick="g_m_qr_pegawai()">Generate QR</a>
 	<!--a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="g_m_cetak_pegawai()">Cetak QR</a-->
 </div>
 <table class="easyui-datagrid" title="Pegawai" style="width:1080px;height:320px" id="g_pegawai"
@@ -157,6 +157,25 @@ $('.halmn').append('Pegawai');
 </div>
 
 
+<!--DIALOG GENERATE QR-->
+<div id="g_qr_pegawai_dlg" class="easyui-dialog" style="width:500px;top:20px"
+        closed="true" buttons="#g_qr_pegawai_dlg-buttons">
+    <form id="g_qr_pegawai_fm" method="post" novalidate style="margin:0;padding:20px 50px">
+    <input type="text" hidden value="H" name="level">
+    <input type="text" hidden value="5" name="size">
+        <div style="margin-bottom:20px;font-size:14px;border-bottom:1px solid #ccc">QR Untuk <input style="border:none;background:transparent;font-weight:bold;" name="nama"></div>
+        <div style="margin-bottom:10px">
+            <input label="Teks QR: " value="sman1mandastana-" type="text" class="easyui-textbox" name="qr_code1" readonly="true" style="width:205px"></input><input name="data" class="easyui-textbox" style="width:150px">
+        </div>
+        <img id="qr_code_img" src="images/no-image.jpg" height="150px" width="150px">
+    </form>
+</div>
+<div id="g_qr_pegawai_dlg-buttons">
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="g_m_qr_pegawai_generate()" style="width:90px">Generate</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#g_qr_pegawai_dlg').dialog('close')" style="width:90px">Batal</a>
+</div>
+
+
 <script type="text/javascript">
 
 function myformatter(date){
@@ -243,6 +262,7 @@ function g_m_edit_pegawai_simpan(){
 			} else {
 				$.messager.show({
 					title: 'Error',
+					height: 150,
 					msg: result.msg
 				});
 			}
@@ -266,6 +286,7 @@ function g_m_hapus_pegawai(){
 						} else {
 							$.messager.show({	// show error message
 								title: 'Error',
+								height: 150,
 								msg: result.msg
 							});
 						}
@@ -275,6 +296,47 @@ function g_m_hapus_pegawai(){
 		}
 		else
 			$.messager.alert('Peringatan','Pilih konsultasi yang akan dihapus.','warning');
+}
+
+function g_m_qr_pegawai(){
+		var row=$('#g_pegawai').datagrid('getSelected');
+		if (row){
+			$('#g_qr_pegawai_dlg').dialog('open').dialog('setTitle','QR Pegawai');
+			$('#g_qr_pegawai_fm').form('load',row);
+			url = '../admin/qr/index.php';
+		}
+		else
+			$.messager.alert('Peringatan','Pilih Pegawai terlebih dahulu.','warning');
+
+}
+
+function g_m_qr_pegawai_generate(){
+		$('#g_qr_pegawai_fm').form('submit',{ 
+			url: url,
+			onSubmit: function(){
+				return $(this).form('validate');
+			},
+			success: function(result){
+				var result = eval('('+result+')');
+
+				if (result.success){
+					$.messager.show({
+						title: 'Sukses',
+						msg: "Data Berhasil Disimpan"
+					})
+					$('#g_qr_pegawai_dlg').dialog('close');		// close the dialog
+					$('#g_pegawai').datagrid('reload');	// reload the user data
+					$('#g_edit_pegawai_fm').form('reset'); //form edit harus direset
+					
+				} else {
+					$.messager.show({
+						title: 'Error',
+						height: 150,
+						msg: result.msg
+					});
+				}
+			}
+		});
 	}
 
 </script>
