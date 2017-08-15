@@ -5,13 +5,13 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="icon" href="images/favico.ico" type="image/ico" sizes="32x32"> 
         <title>QR Code Decoder | C3x</title>
 
-    <link rel="stylesheet" href="css/qr.css">
-    <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/qrcodelib.js"></script>
+        <link rel="stylesheet" href="css/qr.css">
+        <script type="text/javascript" src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/qrcodelib.js"></script>
         <script type="text/javascript" src="js/webcodecamjquery.js"></script>
-    
     </head>
     <body>
         <div id="header1">

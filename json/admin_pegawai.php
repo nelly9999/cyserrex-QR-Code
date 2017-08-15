@@ -8,7 +8,7 @@ $hal   = isset($_POST['page']) ? intval($_POST['page']) : 1;
 $batas = isset($_POST['rows']) ? intval($_POST['rows']) : 10;
 $posisi = ($hal-1)*$batas;
      
-    $sql = "SELECT * FROM pegawai p
+    $sql = "SELECT *, IF(qr_level=1,'Biasa','Spesial') AS qr_lvl FROM pegawai p
 	LEFT JOIN barcode b ON b.id_peg=p.id_peg
 	ORDER BY $sort $order limit $posisi,$batas";
 

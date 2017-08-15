@@ -1,0 +1,27 @@
+.qr_cetak {
+	text-align:center; 
+	margin:auto;
+	width: 210px;
+	height: 320px;
+	background: #eee;
+	border: 15px solid transparent;
+	-moz-border-image: -moz-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);
+	-webkit-border-image: -webkit-linear-gradient(top, #3acfd5 0%, #3a4ed5 100%);
+	border-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+	border-image-slice: 1;
+}
+.kop_cetak {
+	border-bottom: solid 10px;
+	-moz-border-image: -moz-linear-gradient(top, #3acfd5 0%, #3acfd5 100%);
+	-webkit-border-image: -webkit-linear-gradient(top, #3acfd5 0%, #3acfd5 100%);
+	border-image: linear-gradient(to right, #3acfd5 0%, #3acfd5 100%);
+	border-image-slice: 100% 100% 100% 100%;
+	border-image-slice: 1;
+}
+.kop_cetak>img {
+	padding:2px;
+}
+.kop_cetak>span {
+	position:relative;
+	top:-20px;
+}

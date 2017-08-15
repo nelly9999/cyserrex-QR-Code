@@ -1,5 +1,6 @@
 <html>
 <head>
+	<link rel="icon" href="../images/favico.ico" type="image/ico" sizes="32x32"> 
 	<title>Administrator</title>
 
 	<link rel="stylesheet" href="../css/qr_admin.css">
