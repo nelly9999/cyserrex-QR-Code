@@ -13,7 +13,7 @@ $('.halmn').append('Pegawai');
 	<a href="#" class="easyui-linkbutton" iconCls="icon-qr" plain="true" onclick="g_m_qr_pegawai()">Generate QR</a>
 	<!--a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="g_m_cetak_pegawai()">Cetak QR</a-->
 </div>
-<table class="easyui-datagrid" title="Pegawai" style="width:1080px;height:320px" id="g_pegawai"
+<table class="easyui-datagrid" title="Pegawai" style="width:100%;height:320px" id="g_pegawai"
 		data-options="singleSelect:false, url:'../json/admin_pegawai.php', showFooter:true,toolbar:'#g_pegawai_tb',
 					  fitColumns:true, remoteSort:true, autoRowHeight:true, rownumbers: true, singleSelect:true, pagination:true,
 					  pageSize:10, pageList: [10,20,50,100]">
@@ -24,7 +24,8 @@ $('.halmn').append('Pegawai');
 			<th data-options="field:'nip',sortable:true">NIP</th>
 			<th data-options="field:'nama',sortable:true">Nama</th>	
 			<th data-options="field:'jk',sortable:true">JK</th>	
-			<th data-options="field:'id_jbt',sortable:true">Jabatan</th>
+			<th data-options="field:'nama_jbt',sortable:true">Jabatan</th>
+			<th data-options="field:'id_jbt',hidden:true"></th>
 			<th data-options="field:'id_sts',sortable:true">Status</th>
 			<th data-options="field:'tgl_lahir',sortable:true">Tanggal Lahir</th>	
 			<th data-options="field:'alamat',sortable:true">Alamat</th>	
@@ -125,15 +126,7 @@ $('.halmn').append('Pegawai');
 								textField:'nama_jbt',
 								required: 'true',
 								missingMessage: 'Mohon pilih Jabatan',
-								panelHeight:'auto',
-								onSelect: function(rec){					
-									var url = '../json/cmb_jabatan_cek.php?id_jbt='+rec.id_jbt+'';
-									$('#id_pegawai').combobox('reload', url);
-									$.messager.show({
-										title: 'Gagal',
-										msg: 'Pilihan untuk ini tidak ada'
-									})
-									}"></input>     
+								panelHeight:'auto'"></input>     
         </div>
         <div style="margin-bottom:10px">
         	<input label="Status:" class="easyui-combobox" name="id_sts" style="width:200px"
@@ -251,7 +244,7 @@ function g_m_tambah_pegawai_simpan(){
 				} else {
 					$.messager.show({
 						title: 'Error',
-						height: 150,
+						height: 100,
 						msg: result.msg
 					});
 				}
@@ -289,7 +282,7 @@ function g_m_edit_pegawai_simpan(){
 			} else {
 				$.messager.show({
 					title: 'Error',
-					height: 150,
+					height: 100,
 					msg: result.msg
 				});
 			}
@@ -313,7 +306,7 @@ function g_m_hapus_pegawai(){
 						} else {
 							$.messager.show({	// show error message
 								title: 'Error',
-								height: 150,
+								height: 100,
 								msg: result.msg
 							});
 						}
@@ -434,6 +427,4 @@ function g_m_qr_pegawai_cetak(){
 }
 
 </script>
-
-
 </html>

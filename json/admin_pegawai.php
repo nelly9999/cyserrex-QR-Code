@@ -10,6 +10,7 @@ $posisi = ($hal-1)*$batas;
      
     $sql = "SELECT *, IF(qr_level=1,'Biasa','Spesial') AS qr_lvl FROM pegawai p
 	LEFT JOIN barcode b ON b.id_peg=p.id_peg
+	LEFT JOIN jabatan j ON j.id_jbt=p.id_jbt
 	ORDER BY $sort $order limit $posisi,$batas";
 
 if(!$result = $db->query($sql)){

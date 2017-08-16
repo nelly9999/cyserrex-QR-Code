@@ -172,7 +172,7 @@
         var namaHari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
         hariIni = namaHari[hari];
 
-        var tanggal = ("0" + d.getDate()).slice(-2)
+        var tanggal = ("0" + d.getDate()).slice(-2);
 
         var month = new Array();
         month[0] = "Januari";

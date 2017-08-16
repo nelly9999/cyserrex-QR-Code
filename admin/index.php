@@ -17,7 +17,6 @@
         <li class="presensi"><a href="index.php?p=presensi">Presensi</a></li>
 		<li class="laporan"><a href="index.php?p=laporan">Laporan</a></li>
 		<li class="statistik"><a href="index.php?p=statistik">Statistik</a></li>
-		<li class="qr_spesial"><a href="index.php?p=qr_spesial">QR Spesial</a></li>
 		<li class="pengaturan"><a href="index.php?p=pengaturan">Pengaturan</a></li>
         <li class="logout"><a href="index.php?p=logout">Logout</a></li>
 	</ul>
