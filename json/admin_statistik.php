@@ -8,11 +8,15 @@ $order 	= isset($_POST['order']) ? strval($_POST['order']) : 'desc';
 $hal   = isset($_POST['page']) ? intval($_POST['page']) : 1;
 $batas = isset($_POST['rows']) ? intval($_POST['rows']) : 10;
 $posisi = ($hal-1)*$batas;
+$bulan_now = date("m");
+$tahun_now = date("Y");
 $id_peg 	= isset($_GET['id_peg']) ? strval($_GET['id_peg']) : '';
+$bulan_c 	= isset($_GET['bulan_c']) ? strval($_GET['bulan_c']) : $bulan_now;
+$tahun_c 	= isset($_GET['tahun_c']) ? strval($_GET['tahun_c']) : $tahun_now;
 //$tgl = strtoupper(mysqli_real_escape_string($db,$_GET['tgl']));
 
 
-$where = "pr.id_peg LIKE '%$id_peg%'";
+$where = "pr.id_peg LIKE '%$id_peg%' AND MONTH(pr.tgl) LIKE '%$bulan_c%' AND YEAR(pr.tgl) LIKE '%$tahun_c%'";
 
 
 $sql = "SELECT * FROM presensi pr 
@@ -40,11 +44,14 @@ while($row = $result->fetch_assoc()){
 			$akhir = date_create($tl.' '.$row['jam_plg']);
 			$selisih = date_diff($awal,$akhir);
 
+			//UNTUK CHART TANGGAL
+			$row['tanggal'] = date('j', strtotime( $row['tgl']));
+
 			$hari=$selisih->d;
 			$jam=$selisih->h;
 			$mnt=$selisih->i;
 			$dtk=$selisih->s;
-			$jamArr[]=$jam;
+			$row['jam_chart']=$jam;
 			$noArr[]=$no;
 
 			$Thari+=$selisih->d;
@@ -65,7 +72,7 @@ while($row = $result->fetch_assoc()){
 			$no++;
 			$arr[] = $row;
 }	
-		//MASIH SALAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH...................
+
 		  $rata2=$rata/$no;
 
 		 if ($Tdtk>59)
@@ -100,25 +107,25 @@ while($row = $result->fetch_assoc()){
 	$arr2['kerja_t']='<b>Rata2 Kerja Perhari:</b> '.date('G',$rata2).' Jam. '.intval(date('i',$rata2)).' Menit. ';
 
 	$sql = "SELECT * FROM pegawai WHERE id_peg='$id_peg'";
-if(!$cek = $db->query($sql)){
-    die('There was an error running the query [' . $db->error . ']');
-}
-$value 	= $cek->fetch_assoc();
-$nama 	= $value['nama'];
+	if(!$cek = $db->query($sql)){
+	    die('There was an error running the query [' . $db->error . ']');
+	}
+	$value 	= $cek->fetch_assoc();
+	$nama 	= $value['nama'];
 
 
-$sql = "SELECT pr.tgl, pr.id_peg FROM presensi pr where $where";
-if(!$result = $db->query($sql)){
-    die('There was an error running the query [' . $db->error . ']');
-}	
-$jml_hal=$result->num_rows;
-if (empty($jml_hal))
-{
-	$arr2['total_k']='<b>Total:</b> -';
-	$arr2['kerja_t']='<b>Rata2 Kerja Perhari:</b> -';
-	$row['nama'] = $nama;
-	$arr[] = $row;
-}    
+	$sql = "SELECT pr.tgl, pr.id_peg FROM presensi pr where $where";
+	if(!$result = $db->query($sql)){
+	    die('There was an error running the query [' . $db->error . ']');
+	}	
+	$jml_hal=$result->num_rows;
+	if (empty($jml_hal))
+	{
+		$arr2['total_k']='<b>Total:</b> -';
+		$arr2['kerja_t']='<b>Rata2 Kerja Perhari:</b> -';
+		$row['nama'] = $nama;
+		$arr[] = $row;
+	}    
 
 
 echo "{\"total\":" .$jml_hal . ",\"rows\":" .json_encode($arr). ",\"rows2\":" .json_encode($arr2). "}" ;
