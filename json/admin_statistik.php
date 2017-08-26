@@ -15,9 +15,7 @@ $bulan_c 	= isset($_GET['bulan_c']) ? strval($_GET['bulan_c']) : $bulan_now;
 $tahun_c 	= isset($_GET['tahun_c']) ? strval($_GET['tahun_c']) : $tahun_now;
 //$tgl = strtoupper(mysqli_real_escape_string($db,$_GET['tgl']));
 
-
-$where = "pr.id_peg LIKE '%$id_peg%' AND MONTH(pr.tgl) LIKE '%$bulan_c%' AND YEAR(pr.tgl) LIKE '%$tahun_c%'";
-
+$where = "pr.id_peg LIKE '$id_peg' AND MONTH(pr.tgl) LIKE '%$bulan_c%' AND YEAR(pr.tgl) LIKE '%$tahun_c%'";
 
 $sql = "SELECT * FROM presensi pr 
 		LEFT JOIN pegawai p ON p.id_peg=pr.id_peg
@@ -32,7 +30,12 @@ if(!$result = $db->query($sql)){
 	$Tmnt=0;
 	$Tdtk=0;
 	$rata=0;
-	$no=1;
+	$total_rata2=1;
+	
+	$total_rata2=$result->num_rows;
+	if ($total_rata2==0)
+	{$total_rata2=1;}
+
 while($row = $result->fetch_assoc()){
 
 		if ($row['jam_msk'] > $row['jam_plg'])
@@ -52,7 +55,6 @@ while($row = $result->fetch_assoc()){
 			$mnt=$selisih->i;
 			$dtk=$selisih->s;
 			$row['jam_chart']=$jam;
-			$noArr[]=$no;
 
 			$Thari+=$selisih->d;
 			$Tjam+=$selisih->h;
@@ -69,11 +71,10 @@ while($row = $result->fetch_assoc()){
 
 			$row['lama_k'] = $hari.' Hari. '.$jam.' Jam.'.$mnt.' Menit.'.$dtk.' Detik';
 			$row['terlambat'] = $terlambat;
-			$no++;
 			$arr[] = $row;
 }	
 
-		  $rata2=$rata/$no;
+		  $rata2=$rata/$total_rata2;
 
 		 if ($Tdtk>59)
 			{
@@ -112,6 +113,10 @@ while($row = $result->fetch_assoc()){
 	}
 	$value 	= $cek->fetch_assoc();
 	$nama 	= $value['nama'];
+	if (is_null($value['nama']))
+	{
+		$nama 	= '-';
+	}
 
 
 	$sql = "SELECT pr.tgl, pr.id_peg FROM presensi pr where $where";

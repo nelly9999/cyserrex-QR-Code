@@ -19,10 +19,6 @@ $('.halmn').append('Presensi');
 									$('#g_presensi').datagrid('reload', url);
 									}
 	">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="g_m_tambah_presensi()">Tambah</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="g_m_edit_presensi()">Edit</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-trashdel" plain="true" onclick="g_m_hapus_presensi()">Hapus</a>
-	<!--a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="g_m_cetak_pegawai()">Cetak QR</a-->
 </div>
 <table class="easyui-datagrid" title="Presensi" style="width:100%;height:320px" id="g_presensi"
 		data-options="singleSelect:false, url:'../json/admin_presensi.php', showFooter:true,toolbar:'#g_presensi_tb',

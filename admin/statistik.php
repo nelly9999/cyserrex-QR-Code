@@ -12,6 +12,9 @@ $('.halmn').append('Statistik');
         -webkit-user-select: none;
         -ms-user-select: none;
     }
+    select:invalid { 
+    	color: gray; 
+    }
     </style>
  <script type="text/javascript">
 var chart_data = new Array();
@@ -21,7 +24,8 @@ var chart_label = new Array();
 <p id='demo2'></p>
 <!--TABLE/GRID PRESENSI -->
 <div id="g_statistik_tb">
-	<select id="bulan_c" class="easyui-combobox" data-options="prompt:'Bulan'" name="bulan" style="width:100px;">
+<form style="display:inline;" id="statistik_form">
+	<select id="bulan_c" class="easyui-combobox" data-options="prompt:'Bulan',value:'',required: true" name="bulan" style="width:100px;">
         <option value="1">Januari</option>
         <option value="2">Februari</option>
         <option value="3">Maret</option>
@@ -39,6 +43,7 @@ var chart_label = new Array();
 					data-options="url:'../json/cmb_statistik_tahun.php',
 								method:'get',
 								prompt:'Tahun',
+								required: true,
 								valueField:'tahun',
 								textField:'tahun',
 								panelHeight:'auto'
@@ -47,16 +52,18 @@ var chart_label = new Array();
 					data-options="url:'../json/cmb_statistik.php',
 								method:'get',
 								prompt:'Nama Pegawai',
+								required: true,
 								valueField:'id_peg',
 								textField:'nama',
 								panelHeight:'auto'
 								">
+</form>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="g_m_lihat_presensi()">Lihat</a>
 	<!--a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="g_m_cetak_pegawai()">Cetak QR</a-->
 	<span id="total" style="padding: 0 5px 0 10px; height:500px"><b>Total:</b> -</span> 
 	<span id="kerja" style="padding: 0 5px 0 5px; border-left:1px solid #000;height:500px"><b>Rata2 Kerja Perhari:</b> -</span>
 </div>
-<table class="easyui-datagrid" title="Semua Pegawai" style="width:100%;height:320px" id="g_statistik"
+<table class="easyui-datagrid" title="Nama: -" style="width:100%;height:320px" id="g_statistik"
 		data-options="singleSelect:false, url:'../json/admin_statistik.php', showFooter:true,toolbar:'#g_statistik_tb',
 					  fitColumns:true, remoteSort:true, autoRowHeight:true, rownumbers: true, singleSelect:true, pagination:true,
 					  pageSize:10, pageList: [10,20,50,100]">
@@ -79,28 +86,31 @@ var chart_label = new Array();
 </div>
 <script>
 	function g_m_lihat_presensi(){
-		var id_peg = $('#id_peg').val();
-		var bulanC = $('#bulan_c').val();	
-		var tahunC = $('#tahun_c').val();				
-		var url = '../json/admin_statistik.php?id_peg='+id_peg+'&bulan_c='+bulanC+'&tahun_c='+tahunC;
-		$('#g_statistik').datagrid('reload', url);
-		$.ajax({ 
-		        type: 'GET', 
-		        url: '../json/admin_statistik.php?id_peg='+id_peg+'&bulan_c='+bulanC+'&tahun_c='+tahunC, 
-		        success: function (data) {
-			        barChartData.labels.splice(0, 30); // remove chart
-		            window.myBar.update();
-		        	$('#g_statistik').datagrid({title: 'Nama: '+data.rows[0].nama});
-		            $('#total').html(data.rows2.total_k);
-		            $('#kerja').html(data.rows2.kerja_t);									           
-		            for (var n=0; n<data.rows.length; n++)
-		            {
-		            	chart_label[n] = data.rows[n].tanggal;
-		            	chart_data[n] = data.rows[n].jam_chart;    	
-		            }										        		
-			        window.myBar.update();	
-		        }
-		    });
+		if ($('#statistik_form').form('validate'))
+		{
+			var id_peg = $('#id_peg').val();
+			var bulanC = $('#bulan_c').val();	
+			var tahunC = $('#tahun_c').val();				
+			var url = '../json/admin_statistik.php?id_peg='+id_peg+'&bulan_c='+bulanC+'&tahun_c='+tahunC;
+			$('#g_statistik').datagrid('reload', url);
+			$.ajax({ 
+			        type: 'GET', 
+			        url: '../json/admin_statistik.php?id_peg='+id_peg+'&bulan_c='+bulanC+'&tahun_c='+tahunC, 
+			        success: function (data) {
+				        barChartData.labels.splice(0, 30); // remove chart
+			            window.myBar.update();
+			        	$('#g_statistik').datagrid({title: 'Nama: '+data.rows[0].nama});
+			            $('#total').html(data.rows2.total_k);
+			            $('#kerja').html(data.rows2.kerja_t);									           
+			            for (var n=0; n<data.rows.length; n++)
+			            {
+			            	chart_label[n] = data.rows[n].tanggal;
+			            	chart_data[n] = data.rows[n].jam_chart;    	
+			            }										        		
+				        window.myBar.update();	
+			        }
+			    });
+		}
 	}
     var color = Chart.helpers.color;
     var barChartData = {

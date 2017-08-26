@@ -36,10 +36,10 @@
         defaults = {
             decodeQRCodeRate: 5,
             decodeBarCodeRate: 3,
-            successTimeout: 10000,
+            successTimeout: 500,
             codeRepetition: true,
             tryVertical: true,
-            frameRate: 25,
+            frameRate: 15,
             width: 320,
             height: 240,
             constraints: {
@@ -54,8 +54,8 @@
                 },
                 audio: false
             },
-            flipVertical: false,
-            flipHorizontal: false,
+            flipVertical: 0,
+            flipHorizontal: 1,
             zoom: 0,
             beep: 'audio/beep.mp3',
             decoderWorker: 'js/DecoderWorker.js',
