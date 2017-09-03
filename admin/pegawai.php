@@ -89,7 +89,7 @@ $('.halmn').append('Pegawai');
             <input name="no_telp" class="easyui-textbox" label="Nomor Telepon:" style="width:350px">
         </div>
         <div style="margin-bottom:10px">
-            <input name="foto" class="easyui-filebox" accept="image/*" label="Foto:" style="width:300px">
+            <input name="foto" class="easyui-filebox" accept="image/*" buttonText="Pilih Foto" label="Foto:" style="width:300px">
         </div>
     </form>
 </div>
@@ -150,7 +150,7 @@ $('.halmn').append('Pegawai');
             <input name="no_telp" class="easyui-textbox" label="Nomor Telepon:" style="width:350px">
         </div>
         <div style="margin-bottom:10px">
-            <input name="foto" class="easyui-filebox" accept="image/*" label="Foto:" style="width:300px">
+            <input name="foto" class="easyui-filebox" accept="image/*" buttonText="Pilih Foto" label="Foto:" style="width:300px">
         </div>
     </form>
 </div>

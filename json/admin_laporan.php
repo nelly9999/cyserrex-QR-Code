@@ -15,8 +15,9 @@ $tahun_c 	= isset($_GET['tahun_c']) ? strval($_GET['tahun_c']) : $tahun_now;
 
 $where = "MONTH(pr.tgl) LIKE '%$bulan_c%' AND YEAR(pr.tgl) LIKE '%$tahun_c%'";
      
-$sql = "SELECT p.id_peg, p.nama, p.nip, pr.tgl, pr.id_khd FROM presensi pr
+$sql = "SELECT p.id_peg, p.nama, p.nip, pr.tgl, pr.id_khd, j.nama_jbt FROM presensi pr
 		LEFT JOIN pegawai p ON p.id_peg=pr.id_peg
+		LEFT JOIN jabatan j ON j.id_jbt=p.id_jbt
     	WHERE $where
 		ORDER BY $sort $order limit $posisi,$batas";
 
@@ -29,20 +30,18 @@ $cek=0;
 $r=-1;
 $jlh=0;
 while($row = $result->fetch_assoc()){
-	//Cek jika ID_PEG berubah
 	if ($row['id_peg']!=$cek)
 	{
 		$r++;
-		//RESET $jlh ke 0 untuk pegawai berikutnya
 		$jlh=0;
 	}
 	$t = date('j', strtotime($row['tgl']));
 	$tgl = "tgl".$t;
 	$arr[$r]["nama"] = $row['nama'];
 	$arr[$r]["nip"] = $row['nip'];
+	$arr[$r]["jbt"] = $row['nama_jbt'];
 	if ($row['tgl'])
 	{
-		//Isi Tgl kehadiran dengan X (silang)
 		$arr[$r]["$tgl"] = 'x';
 		$jlh++;
 	}

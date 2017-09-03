@@ -7,7 +7,7 @@ $order 	= isset($_POST['order']) ? strval($_POST['order']) : 'desc';
 $hal   = isset($_POST['page']) ? intval($_POST['page']) : 1;
 $batas = isset($_POST['rows']) ? intval($_POST['rows']) : 10;
 $posisi = ($hal-1)*$batas;
-$tgl 	= isset($_GET['tgl']) ? strval($_GET['tgl']) : '';
+$tgl 	= isset($_GET['tgl']) ? strval($_GET['tgl']) : date('Y-m-d');
 //$tgl = strtoupper(mysqli_real_escape_string($db,$_GET['tgl']));
 
 $where = "pr.tgl LIKE '%$tgl%'";

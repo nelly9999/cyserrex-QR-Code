@@ -1,0 +1,11 @@
+# deny all php file access
+<FILES ~ "\.php$">
+	Order allow,deny
+	Deny from all
+</FILES>
+ 
+# allow only one file access
+<Files index.php>
+Allow from all
+Satisfy any
+</Files>

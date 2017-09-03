@@ -35,8 +35,8 @@
         localStream = null,
         defaults = {
             decodeQRCodeRate: 5,
-            decodeBarCodeRate: 3,
-            successTimeout: 500,
+            decodeBarCodeRate: null,
+            successTimeout: 7000,
             codeRepetition: true,
             tryVertical: true,
             frameRate: 15,
@@ -55,7 +55,7 @@
                 audio: false
             },
             flipVertical: 0,
-            flipHorizontal: 1,
+            flipHorizontal: 0,
             zoom: 0,
             beep: 'audio/beep.mp3',
             decoderWorker: 'js/DecoderWorker.js',

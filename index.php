@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
-    include 'koneksi.php';
+include 'koneksi.php';
+if (isset($_GET['error']))
+{echo "<script>alert('Username atau Password Salah');</script>";}
 ?>
 <html>
     <head>
@@ -40,7 +42,7 @@
             <td>
                 <div id="status_cam">
                         <div id="cam_not_ready">
-                        Siap dalam <span>10</span> detik
+                        Siap dalam <span>7</span> detik
                         </div>
                         <div id="cam_ready">
                         Kamera Siap!
@@ -103,7 +105,7 @@
             function FungsiMenunggu() {
                 $('#cam_ready').hide();
                 $('#cam_not_ready').fadeIn('fast'); 
-                var sec = 10
+                var sec = 7
                 var timer = setInterval(function() { 
                    $('#cam_not_ready span').text(sec--);
                    if (sec < 0) {
@@ -292,7 +294,7 @@ setInterval(updateClock, second);
 <!-- The Modal -->
 <div id="login" class="modal">
   
-  <form class="modal-content" action="/action_page.php">
+  <form class="modal-content" method="POST" action="json/login.php">
     <div class="modal-header">
       <span class="tutup_l tutup">&times;</span>
       <h2>Login</h2>
@@ -308,7 +310,7 @@ setInterval(updateClock, second);
           <td style="padding:0px;"><input class="InputBox input_login" type="password" placeholder="Masukan Password" name="password" required></td>
         </tr>
         <tr> 
-          <td><button id="tombol2" type="submit">Login</button></td>
+          <td><button id="tombol2" type="submit" name="login">Login</button></td>
         </tr>
     </table>
     </div>

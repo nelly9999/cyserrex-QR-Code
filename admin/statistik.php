@@ -25,7 +25,7 @@ var chart_label = new Array();
 <!--TABLE/GRID PRESENSI -->
 <div id="g_statistik_tb">
 <form style="display:inline;" id="statistik_form">
-	<select id="bulan_c" class="easyui-combobox" data-options="prompt:'Bulan',value:'',required: true" name="bulan" style="width:100px;">
+	<select id="bulan_c" class="easyui-combobox" data-options="prompt:'Bulan',value:'',required: true,missingMessage:'Pilih Bulan'" name="bulan" style="width:100px;">
         <option value="1">Januari</option>
         <option value="2">Februari</option>
         <option value="3">Maret</option>
@@ -46,7 +46,8 @@ var chart_label = new Array();
 								required: true,
 								valueField:'tahun',
 								textField:'tahun',
-								panelHeight:'auto'
+								panelHeight:'auto',
+								missingMessage:'Pilih Tahun'
 								">
 	<input class="easyui-combobox" plain="true" style="width:150px" id="id_peg"
 					data-options="url:'../json/cmb_statistik.php',
@@ -55,7 +56,8 @@ var chart_label = new Array();
 								required: true,
 								valueField:'id_peg',
 								textField:'nama',
-								panelHeight:'auto'
+								panelHeight:'auto',
+								missingMessage:'Pilih Pegawai'
 								">
 </form>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="g_m_lihat_presensi()">Lihat</a>
