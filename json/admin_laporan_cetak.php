@@ -125,12 +125,31 @@ if (isset($_GET['bulan']) && isset($_GET['tahun']))
 		$excel->getActiveSheet()->mergeCells('F'.$barisH.':'.$pres_abc2.$barisH);
 		//$excel->getActiveSheet()->getStyle('F'.$barisH)->getAlignment()->setWrapText(true);
 
+		
+		//$excel->getActiveSheet()->getStyle('E'.$barisH)->getAlignment()->setWrapText(true);
+
+		
+		
+
 		// Apply style
 		$excel->getActiveSheet()->getStyle('B'.$barisH.':B'.$barisH2)->applyFromArray($style_col);
 		$excel->getActiveSheet()->getStyle('C'.$barisH.':C'.$barisH2)->applyFromArray($style_col);
 		$excel->getActiveSheet()->getStyle('D'.$barisH.':D'.$barisH2)->applyFromArray($style_col);
 		$excel->getActiveSheet()->getStyle('E'.$barisH.':E'.$barisH2)->applyFromArray($style_col);
 		$excel->getActiveSheet()->getStyle('F'.$barisH.':'.$pres_abc2.$barisH)->applyFromArray($style_col);
+		
+
+		$barisH_1 = $barisH+1;
+		$excel->setActiveSheetIndex(0)->setCellValue($pres_abc.$barisH, "JUMLAH");
+		$excel->getActiveSheet()->mergeCells($pres_abc.$barisH.':'.$pres_abc.$barisH_1);	
+		$excel->getActiveSheet()->getStyle($pres_abc.$barisH.':'.$pres_abc.$barisH_1)->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle($pres_abc.$barisH)->getAlignment()->setWrapText(true);
+
+		$pres_abc++;
+		$excel->setActiveSheetIndex(0)->setCellValue($pres_abc.$barisH, "TOTAL JAM");
+		$excel->getActiveSheet()->mergeCells($pres_abc.$barisH.':'.$pres_abc.$barisH_1);
+		$excel->getActiveSheet()->getStyle($pres_abc.$barisH.':'.$pres_abc.$barisH_1)->applyFromArray($style_col);
+		$excel->getActiveSheet()->getStyle($pres_abc.$barisH)->getAlignment()->setWrapText(true);
 
 
 		$data =  json_decode($json, true);
@@ -166,6 +185,15 @@ if (isset($_GET['bulan']) && isset($_GET['tahun']))
 			$excel->getActiveSheet()->getStyle('C'.$barisI)->applyFromArray($style_row);
 			$excel->getActiveSheet()->getStyle('D'.$barisI)->applyFromArray($style_row);
 			$excel->getActiveSheet()->getStyle('E'.$barisI)->applyFromArray($style_row);
+
+			$excel->setActiveSheetIndex(0)->setCellValue($pres_isi.$barisI, $value['jumlah']);
+					$excel->getActiveSheet()->getStyle($pres_isi.$barisI)->applyFromArray($style_row);
+					$excel->getActiveSheet()->getStyle($pres_isi.$barisI)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+			$pres_isi++;
+			$excel->setActiveSheetIndex(0)->setCellValue($pres_isi.$barisI, $value['jam_bln']);
+					$excel->getActiveSheet()->getStyle($pres_isi.$barisI)->applyFromArray($style_row);
+					$excel->getActiveSheet()->getStyle($pres_isi.$barisI)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 			
 			$excel->getActiveSheet()->getRowDimension($barisI)->setRowHeight(15);
 
@@ -188,14 +216,14 @@ if (isset($_GET['bulan']) && isset($_GET['tahun']))
 		$excel->getActiveSheet()->getStyle('A'.$atas)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); 
 
 		$atas = 2;
-		$excel->setActiveSheetIndex(0)->setCellValue('A'.$atas, 'Jalan'); 
+		$excel->setActiveSheetIndex(0)->setCellValue('A'.$atas, 'Jl Tabing Rimbah Km.4 Kec Mandastana (70581)'); 
 		$excel->getActiveSheet()->mergeCells('A'.$atas.':'.$pres_abc.$atas); 
 		$excel->getActiveSheet()->getStyle('A'.$atas)->getFont()->setBold(TRUE); 
 		$excel->getActiveSheet()->getStyle('A'.$atas)->getFont()->setSize(11); 
 		$excel->getActiveSheet()->getStyle('A'.$atas)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER); 
 
 		$atas = 3;
-		$excel->setActiveSheetIndex(0)->setCellValue('A'.$atas, 'Telepon'); 
+		$excel->setActiveSheetIndex(0)->setCellValue('A'.$atas, 'Kab. Barito Kuala Telp (0511) 6162597 Kalimantan Selatan'); 
 		$excel->getActiveSheet()->mergeCells('A'.$atas.':'.$pres_abc.$atas); 
 		$excel->getActiveSheet()->getStyle('A'.$atas)->getFont()->setBold(TRUE); 
 		$excel->getActiveSheet()->getStyle('A'.$atas)->getFont()->setSize(11); 

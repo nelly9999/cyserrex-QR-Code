@@ -31,7 +31,7 @@ if(isset($_POST['oke']))
         <option value="12">Desember</option>
     </select>
 	<input class="easyui-combobox" plain="true" name="tahun" style="width:80px" id="tahun_c"
-					data-options="url:'../json/cmb_statistik_tahun.php',
+					data-options="url:'../json/cmb_detail_tahun.php',
 								method:'get',
 								prompt:'Tahun',
 								required: true,
@@ -72,6 +72,8 @@ if(isset($_POST['oke']))
 			?>
 			</span>
 			<th data-options="field:'jumlah'">Jumlah Kehadiran</th>
+			<th data-options="field:'jam_bln'">Jumlah Jam/Bulan</th>
+			<th data-options="field:'ket'">Keterangan</th>
 		</tr>
 	</thead>
 </table>

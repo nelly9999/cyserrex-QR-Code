@@ -59,4 +59,62 @@ if($_GET['page']=='simpan')
 	$content=implode('',$line);
 	file_put_contents('../js/webcodecamjquery.js',$content);
 }
+
+if($_GET['page']=='simpanPass')
+{
+	$pass1  	 = $_POST['passw1'];
+	$pass2  	 = $_POST['passw2'];
+
+	if ($pass1==$pass2)
+	{
+	$password = md5($pass1); 
+	$sql = $db->query("UPDATE user SET
+			password	= '$password'
+			WHERE id_user='1' ");	
+
+						if($sql)
+						{
+							echo json_encode(array('success'=>true));
+						}
+						else
+						{
+							echo json_encode(array('msg'=>'Ada Masalah Penyimpanan password '.$db->error));
+						}	
+	}
+	else
+	{
+		echo json_encode(array('msg'=>'Password tidak sama'));
+	}	
+
+}
+
+if($_GET['page']=='simpanJam')
+{
+	$msk  	 = $_POST['j_msk'];
+	$keluar  = $_POST['j_keluar'];
+	$keluar_msk  	 = $_POST['j_keluar_msk'];
+	$plg  	 = $_POST['j_plg'];
+
+ 	if ($msk < $keluar || $keluar < $plg || $msk < $plg)
+ 	{
+	$sql = $db->query("UPDATE jam SET
+			j_msk	= '$msk',
+			j_keluar	= '$keluar',
+			j_keluar_msk = '$keluar_msk',
+			j_plg	= '$plg'
+			WHERE id='1' ");	
+			if($sql)
+			{
+				echo json_encode(array('success'=>true));
+			}
+			else
+			{
+				echo json_encode(array('msg'=>'Ada Masalah Penyimpanan Jam '.$db->error));
+			}	
+	}
+	else
+	{
+		echo json_encode(array('msg'=>'Jam Salah. Ada yang lebih besar'));
+	}
+}
 ?>

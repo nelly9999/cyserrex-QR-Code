@@ -90,7 +90,7 @@ if($_GET['page']=='simpan')
 					{
 						echo json_encode(array('msg'=>'Upload Gagal, Tipe File: ('.$tipe_file.'). Hanya file Foto yang bisa diupload'));
 					}					
-					else if ($ukuran_file>(1024*1024))
+					else if ($ukuran_file>(5024*5024))
 					{
 						echo json_encode(array('msg'=>'Maksimal File Upload 1Mb !!!'));
 					}
@@ -175,7 +175,7 @@ if($_GET['page']=='simpan')
 					echo json_encode(array('msg'=>'Upload Gagal, Tipe File: ('.$tipe_file.'). Hanya file Foto yang bisa diupload'));
 				}	
 					
-				else if ($ukuran_file>(1024*1024))
+				else if ($ukuran_file>(5024*5024))
 				{
 					echo json_encode(array('msg'=>'Maksimal File Upload 1Mb !!!'));
 				}
@@ -348,7 +348,7 @@ if($_GET['page']=='edit')
 					echo json_encode(array('msg'=>'Upload Gagal, Tipe File: ('.$tipe_file.'). Hanya file Foto yang bisa diupload'));
 				}	
 					
-				else if ($ukuran_file>(1024*1024))
+				else if ($ukuran_file>(5024*5024))
 				{
 					echo "Maksimal File Upload 1Mb !!! <br>";
 				}

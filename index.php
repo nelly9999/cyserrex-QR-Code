@@ -8,7 +8,7 @@ if (isset($_GET['error']))
     <head>
         <meta charset="UTF-8">
         <link rel="icon" href="images/favico.ico" type="image/ico" sizes="32x32"> 
-        <title>QR Code Decoder | C3x</title>
+        <title>Sistem Presensi SMA Negeri 1 Mandastana</title>
 
         <link rel="stylesheet" href="css/qr.css">
         <script type="text/javascript" src="js/jquery.js"></script>
@@ -17,7 +17,7 @@ if (isset($_GET['error']))
     </head>
     <body>
         <div id="header1">
-            <h3>Deteksi QR Code dengan JQuery</h3>
+             <h3><img src="images/logo.png" alt="Smiley face" height="50" width="50"><span style="top: 35px;position: absolute;left: 70px;">Presensi SMA Negeri 1 Mandastana</span></h3>
             <div id="tombol_header">
                 <button id="tombol_h_login" value="Submit">Login</button>
                 <button id="tombol_h_help" value="Submit">Bantuan</button>

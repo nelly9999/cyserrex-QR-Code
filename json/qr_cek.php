@@ -93,11 +93,13 @@
 
 			        $value = $cek4->fetch_assoc();
 			        $jam_msk = $value['jam_msk'];
+			        $jam_keluar = $value['jam_keluar'];
+			        $jam_keluar_msk = $value['jam_keluar_msk'];
 
 
 
 					//PRESENSI MASUK
-					if (empty($jam_msk))
+					if (empty($jam_msk) || $jam_msk=='00:00:00')
 					{
 				  		$sql2 = $db->query("INSERT INTO presensi (id_peg,tgl,jam_msk,id_khd) VALUES ('$id_peg','$tanggal','$jam','$id_khd')");
 
@@ -105,14 +107,34 @@
 
 					} 
 
-					//PRESENSI KELUAR/PULANG
-					else 
+					//PRESENSI KELUAR
+					elseif($jam_keluar=='00:00:00' && $jam_msk!='00:00:00')
+					{
+						$sql2 = $db->query("UPDATE presensi SET
+								jam_keluar	= '$jam'
+								WHERE id_peg='$id_peg' AND tgl='$tanggal'");
+
+				  		$myArray['ket'] = 'Keluar (Istirahat)';
+					}
+
+					//PRESENSI KELUAR
+					elseif($jam_keluar_msk=='00:00:00' && $jam_keluar!='00:00:00' && $jam_msk!='00:00:00')
+					{
+						$sql2 = $db->query("UPDATE presensi SET
+								jam_keluar_msk	= '$jam'
+								WHERE id_peg='$id_peg' AND tgl='$tanggal'");
+
+				  		$myArray['ket'] = 'Masuk (Istirahat)';
+					}
+
+					//PRESENSI PULANG
+					elseif($jam_msk!='00:00:00' && $jam_keluar_msk!='00:00:00' && $jam_keluar!='00:00:00')
 					{
 						$sql3 = $db->query("UPDATE presensi SET
 								jam_plg	= '$jam'
 								WHERE id_peg='$id_peg' AND tgl='$tanggal'");
 
-						$myArray['ket'] = 'Keluar';
+						$myArray['ket'] = 'Pulang';
 
 					}
 				}

@@ -32,6 +32,8 @@ $('.halmn').append('Presensi');
 			<th data-options="field:'nip',sortable:true">NIP</th>
 			<th data-options="field:'nama',sortable:true">Nama</th>		
 			<th data-options="field:'jam_msk',sortable:true">Jam Masuk</th>
+			<th data-options="field:'jam_keluar',sortable:true">Jam Keluar</th>
+			<th data-options="field:'jam_keluar_msk',sortable:true">Jam Masuk (Keluar)</th>
 			<th data-options="field:'jam_plg',sortable:true">Jam Pulang</th>	
 		</tr>
 	</thead>
