@@ -4,7 +4,7 @@ QR Code Berbasis Web
 
 # Versi
 v2.0 Final
--All Fix
+- All Fix
 
 v1.0
 - Dasbor
